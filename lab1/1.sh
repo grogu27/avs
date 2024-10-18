@@ -13,16 +13,15 @@ hdd=$(df -h)
 linux=$(uname -a)
 #eth_details=$(ip addr show)
 #eth=$(ip -o addr show | awk '{print $2, $4, $6}' | sort | uniq)
-speed_eth=$(ethtool eth1 | grep -i speed)
+#speed_eth=$(ethtool eth1 | grep -i speed)
 #eth_details=$(ip addr show)
 
 
 # Получение информации о сетевых интерфейсах, IP и MAC адресах
 eth_info=""
-eth_info=""
 for interface in $(ip -o link show | awk -F': ' '{print $2}'); do
     # Получение MAC адреса
-    mac=$(ip link show $interface | awk '/ether|link\/ieee802/ {print $2}')
+    mac=$(ip link show $interface | awk '/ether|link|loopback\/ieee802/ {print $2}')
     
     # Получение всех IP адресов
     ip_list=$(ip -o addr show $interface | awk '{print $4}' | tr '\n' ', ')
@@ -40,11 +39,10 @@ done
 
 
 speed_info=""
-for interface in $(ip link show | grep 'state UP' | awk '{print $2}' | sed 's/://g'); do
-    echo "Интерфейс: $interface"
-    speed=$(ethtool $interface 2>/dev/null | grep -i speed)
+for interface in $(ip link show | grep 'state'  | awk '{print $2}' | sed 's/://g'); do
+    speed=$(ethtool $interface  | grep -i speed)
     if [[ -n $speed ]]; then
-        speed_info+="$interface: $speed\n"
+    speed_info+="$interface: $speed\n"
     else
         speed_info+="$interface: Не удалось получить данные о скорости\n"
     fi
@@ -58,10 +56,7 @@ echo -e "Информация  о оперативной памяти: \n$mem"
 echo "--------------------------------------------------------"
 echo -e "Информация  о сетевых интерфейсах: \n$eth_info"
 echo "--------------------------------------------------------"
-echo -e "ИнфИнформация а о скорости сетевого интерфейса eth0: \n$speed_info"
+echo -e "ИнфИнформация о скорости сетевых интерфейсов: \n$speed_info"
 echo "--------------------------------------------------------"
 echo -e "Информация  о дисках: \n$hdd"
 echo "--------------------------------------------------------"
-
-
-
