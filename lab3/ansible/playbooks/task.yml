@@ -1,0 +1,15 @@
+---
+- name: Gather system information
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Generate system info file from template
+      ansible.builtin.template:
+        src: ../templates/system_info.j2  
+        dest: /tmp/system_info.yml  
+
+    - name: Fetch system info file from container
+      ansible.builtin.fetch:
+        src: /tmp/system_info.yml  
+        dest: ../templates/{{ inventory_hostname }}_system_info.yml  
+        flat: yes  

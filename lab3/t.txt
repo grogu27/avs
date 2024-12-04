@@ -1,0 +1,2 @@
+ssh ansible_user@localhost -p 2222
+docker exec -it container1 /bin/sh

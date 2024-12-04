@@ -1,0 +1,10 @@
+---
+system_info:
+  hostname: {{ ansible_hostname }}
+  os: {{ ansible_distribution }} {{ ansible_distribution_version }}
+  memory: {{ ansible_memory_mb.real.total }} MB
+  count cpu: {{ ansible_processor_count }}
+  cpu: {{ ansible_processor[2] }}
+  cores: {{ansible_processor_cores}}
+  architecture: {{ ansible_architecture }}
+  uptime: {{ ansible_uptime_seconds | int // 3600 }} hours
