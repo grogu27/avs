@@ -1,0 +1,6 @@
+docker run -d --name tt --rm nginx:1.26.0
+docker cp tt:/etc/nginx/conf.d/default.conf ./balancer.conf
+docker-compose up -d
+curl http://localhost
+for i in $(seq 1 50);do curl http://localhost;done
+docker-compose down
