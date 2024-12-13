@@ -1,0 +1,49 @@
+alias k=kubectl
+alias k="minikube kubectl --"
+minikube start
+minikube addons enable ingress
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
+kubectl apply -f ingress.yml
+
+http://<Minikube_IP>
+http://<minikube-ip>:30081
+curl http://192.168.58.2
+
+kubectl get pods
+kubectl get replicasets
+kubectl get pods -n kube-system
+k delete pod my_pod
+kubectl get pods -o wide
+kubectl cluster-info
+kubectl get nodes
+kubectl get deployments nginx-deployment
+kubectl get replicasets
+kubectl get service nginx-service
+kubectl get ingress nginx-ingress
+kubectl describe ingress nginx-ingress
+
+kubectl get endpoints nginx-service
+
+k get namespaces
+kubectl get pods --namespace=kube-system
+minikube ip
+minikube ssh
+minikube tunnel
+k run my_pod --image=nginx
+k create deployment nginx-deployment --image=nginx --replicas=2
+k scale deploy nginx-deployment --replicas=2
+k describe deploy nginx-deployment
+k describe pod my_pod
+kubectl delete all --all
+minikube stop
+
+Deployment запускает и управляет подами приложения. Deployment запускает и управляет подами приложения.
+Service Сущность для обеспечения доступа к подам. Service предоставляет сетевой доступ к подам, обеспечивая балансировку нагрузки между репликами.
+Service создаёт стабильный сетевой интерфейс, который направляет трафик на поды
+Ingress управляет внешним доступом к сервисам через HTTP/HTTPS.
+Ingress предоставляет внешний доступ к сервису, перенаправляя HTTP-запросы с домена nginx.local на nginx-service, а затем на поды.
+
+
+type: ClusterIP
+Тип сервиса, который делает его доступным только внутри кластера.
