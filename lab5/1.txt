@@ -9,6 +9,7 @@ kubectl apply -f ingress.yml
 http://<Minikube_IP>
 http://<minikube-ip>:30081
 curl http://192.168.58.2
+curl -H "Host: nginx.lab5" http://192.168.49.2
 
 kubectl get pods
 kubectl get replicasets
